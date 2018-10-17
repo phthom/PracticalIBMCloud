@@ -23,7 +23,8 @@
 - [Task 5. Install Git on your laptop](#task-5-install-git-on-your-laptop)
 - [Task 6. Install the ibmcloud command](#task-6-install-the-ibmcloud-command)
 - [Task 7. Login to IBM Cloud](#task-7-login-to-ibm-cloud)
-- [Task 8. Conclusion](#task-8-conclusion)
+- [Task 8. Node.JS](#task-8-Node.JS)
+- [Task 9. Conclusion](#task-9-conclusion)
 
 
 # Task 1. IBM Cloud registration
@@ -462,7 +463,16 @@ Or you can also use :
 
 Where -o is your **email** and -s is the **dev** space.
 
-# Task 8. Conclusion
+# Task 8. Node.js
+
+Some labs require Node.js.
+
+From that link:
+https://nodejs.org/en/
+
+Choose the LST version of Node.js for your laptop.
+
+# Task 9. Conclusion
 
 ###  Results
 <span style="background-color:yellow;">Successful exercise ! </span>
