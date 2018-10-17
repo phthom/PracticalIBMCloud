@@ -39,6 +39,9 @@ This set of instructions requires that docker is already installed and docker co
 
 >***Note:*** This lab assumes that you are running this from a "clean" environment. Clean means that you have not used docker with the images in this lab. This is important for someone who hasn't seen docker so they can see the activity as images are downloaded.
 
+> This lab doesn't use any resources from IBM Cloud.
+
+
 ## Task 1 - Working with Docker
 
 

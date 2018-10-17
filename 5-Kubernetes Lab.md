@@ -664,7 +664,9 @@ Test your new code :
 
 ![New Application up and running](./images/NewApp.png)
 
+# Conclusion
 
+You have learnt how to create a Kubernetes cluster and how to configure all the necessary tools (CLI, connection) to manage a cluster and the kubernetes resources (PODs, Services).
 
 
 ---

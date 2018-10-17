@@ -33,10 +33,10 @@
     + [Task 2. Clone the simulator application:](#task-2-clone-the-simulator-application-)
     + [Task 3. Configure your simulator application](#task-3-configure-your-simulator-application)
     + [Task 4. Start the simulator](#task-4-start-the-simulator)
-- [6. Visualisation](#6-visualisation)
+- [6. Visualization](#6-visualisation)
     + [Task 1. Dashboard](#task-1-dashboard)
     + [Task 2. Node-Red](#task-2-node-red)
-- [8. Conclusion](#8-conclusion)
+- [7. Conclusion](#8-conclusion)
 
 +++
 
@@ -293,7 +293,7 @@ You can enhance this flow with a lot of features (logic, database …)  and play
 
 ![IBM Cloud](./images/i320.png)
 
-# 8. Conclusion
+# 7. Conclusion
 <span style="background-color:yellow;">Successful exercise ! </span>
 
 You learned how to use the IBM Internet of Things, Node-Red and a Node application to implement MQTT messages to send and collect metrics. 
