@@ -69,7 +69,7 @@ Apps
 
 The dashboard provides everything you need to get your apps up and running, and to manage those apps while they run. IBM Cloud provides various boilerplates and runtimes:
 
-A **boilerplate** is a template for an application and its associated runtime environment and predefined services for a specific domain.
+A **boilerplate or Starter Kit** is a template for an application and its associated runtime environment and predefined services for a specific domain.
 A runtime is the set of resources that is used to run an app, provided as containers for different types of apps.
 IBM Cloud provides various ways for you to run your apps, for example, Cloud Foundry and IBM® Cloud Container Service. Use IBM® Cloud Container Service to run Docker containers in a hosted cloud environment on IBM Cloud.
 
