@@ -10,6 +10,28 @@
 
 ## Table of Content
 
+- [1. Toolchain Overview](#1-toolchain-overview)
+- [2. Objectives](#2-objectives)
+- [3. Create the Toolchain](#3-create-the-toolchain)
+    + [Task 1 : Login to IBM Cloud](#task-1---login-to-ibm-cloud)
+    + [Task 2 : Access the Dashboard](#task-2---access-the-dashboard)
+    + [Task 3 : Hamburger Menu](#task-3---hamburger-menu)
+    + [Task 4 : DevOps page](#task-4---devops-page)
+    + [Task 5 : Toochain Templates](#task-5---toochain-templates)
+    + [Task 6 : Cloud Foundry App](#task-6---cloud-foundry-app)
+    + [Task 7 : Gitlab Repos](#task-7---gitlab-repos)
+    + [Task 8 : Orion](#task-8---orion)
+    + [Task 9 : Pipeline](#task-9---pipeline)
+- [4. Modify the application](#4-modify-the-application)
+    + [Task 1 : Access Orion](#task-1---access-orion)
+    + [Task 2 : Navigate into the repo](#task-2---navigate-into-the-repo)
+    + [Task 3 : Modify the file](#task-3---modify-the-file)
+    + [Task 4 : Commit and Push](#task-4---commit-and-push)
+    + [Task 5 : Pipeline](#task-5---pipeline)
+- [5. Add a stage](#5-add-a-stage)
+
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 +++
 
