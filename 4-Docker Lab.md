@@ -5,7 +5,7 @@
 ---
 # Docker Labs
 ---
- 
+
 ![Docker Logo](./images/docker2.png)
 
 
@@ -49,16 +49,16 @@ This set of instructions requires that docker is already installed and docker co
 ### 1. Check Docker version
 
 Launch a shell or a command line and confirm that docker is installed.
-   
+
 The version number isn't particularly important.
 However, you can see both the client (CLI) and the server (engine).
 
 `docker version`
-  
+
 ![Docker Version](./images/docker version.png)
-  
+
 If you receive an error then go back to the "PrepareLab.md" document to install Docker on your system. 
-  
+
 ### 2. Run your first container
 
 As with all new computer things, it is obligatory that we start with "hello-world"
@@ -83,7 +83,7 @@ Notice that the image is not pulled down again. It already exists locally, so it
  `docker images hello-world`
 
 ![docker images](./images/dockerimages.png)  
-  
+
 
 ### 5. From where was the `hello-world` image pulled? 
 
@@ -109,16 +109,16 @@ The running image is called a **container**. Let us run a more typical image; th
 Notice only the first part of that long hex id is displayed. Typically this is more than enough to uniquely identify that container. `docker ps` provides information about when the container was created, how long it has been running, then name of the image as well as the name of the container. Note that each container must have a unique name. You can specify a name for each container as long as it is unique.
 
 `docker ps | grep couchdb`
- 
+
 ![docker ps](./images/multipledb2.png)
-  
+
 
 ### 8. An image can be run multiple times. 
 
 Launch another container for the couchdb image.
 
 `docker run -d couchdb`
-    
+​    
 ![Multiple CouchDB](./images/multipledb.png)    
 
 ### 9. Now we have two containers running the couchdb database. 
@@ -144,7 +144,7 @@ Stop the most recent container and then check to see what's running.
 ### 11. Stop the other container and see what is running.
 
  `docker stop c3703c8648a6`
-   
+
  `docker ps | grep couchdb`
 
 ![Stop another container](./images/ps5.png)    
@@ -152,9 +152,9 @@ Stop the most recent container and then check to see what's running.
 ### 12. Notice the image still exists.
 
   `docker images`
-  
+
   ![image is still there](./images/images5.png)    
-  
+
   
 
 ### 13. Did you forget about the hello-world image? 
@@ -162,9 +162,9 @@ Stop the most recent container and then check to see what's running.
 Go ahead and delete the couchdb image and double check that it is gone.
 
 ` docker rmi couchdb`
- 
+
  ![error when removing the image](./images/images6.png)   
- 
+
 
 ### 14. Oops, we can't delete that image until we delete the "couchdb" container. 
 > Note the `docker ps -a` will show us all the containers, not just the ones that are running but also the ones that stop.
@@ -173,26 +173,26 @@ You will noticed that all containers that you are listing have been stopped.
 `docker ps -a | grep couchdb`
 
  ![Listing past images](./images/rmi.png)  
- 
+
  
 
 ### 15. Delete the couchdb container, delete the couchdb image, and make sure it is gone. You can leave hello-world.
 
 `docker rm cde802ef4a40 c3703c8648a6 bceece7628dc 676fe6a8eb5f`
-    
+​    
 ![removing past images](./images/rm.png)  
- 
+
  `docker rmi couchdb`
- 
+
  ![removing the image](./images/rmi2.png)  
- 
- 
+
+
 `docker ps -a | grep couchdb`
 
  ![Listing past images](./images/images7.png)
- 
+
   >***Note:*** Docker images and containers can be referenced by **name** or by **id**. 
-  
+
 
 
 ## Task 2: Building Docker Images
@@ -363,19 +363,52 @@ EXPOSE 80
 
 Here, what we are building is an image that will run the nginx proxy server for us. Look at the set of instructions and it should be pretty clear. After the standard FROM and MAINTAINER instructions, we are executing a couple of RUN instructions. A RUN instruction is used to execute any commands during the **build** process. In this case we are running a package update and then installing nginx. The ENTRYPOINT is then running the nginx executable and we are using the EXPOSE command here to inform what port the container will be listening on. Remember in our earlier chapters, we saw that if we use the -P command, then the EXPOSE port will be used by default. However, you can always change the host port via the -p parameter as needed.
 
-`docker run -d -p 80:80 --name webserver myimage`
+`docker run -d -p 8081:80 --name webserver myimage`
 
-Go to you favorite internet browser and enter the following URL:
-`https://localhost:80`
+`curl http://ipaddress:8081`
+
+Results :
+
+```console
+# curl http://159.122.2.109:8081
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+Or you can also open a browser on your laptop and type :
+
+http://ipaddress:8081/ 
+
+
 
 ![Launching the web server](./images/nginx2.png)  
- 
+
 
 
 ## Conclusion
 
 Congratulations, you have successfully completed this Containers lab!.  You've just deployed your first Docker-based web app on IBM Cloud Private!  In this lab, you learned how to tag and push local images to IPC, inspect pushed images for security vulnerabilities, and run hosted multi-container applications on IBM Containers.
-
 
 ---
 # End of the lab
