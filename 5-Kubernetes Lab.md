@@ -1,4 +1,5 @@
 
+
 ![kube2](images/sca000.png)
 
 ---
@@ -162,7 +163,9 @@ If you get an error, go to the PrepareLab.MD file to understand how to install d
 
 `ibmcloud plugin list`
 
-```console
+Results: 
+
+```bash
 $ ibmcloud plugin list
 Listing installed plug-ins...
 
@@ -177,8 +180,7 @@ container-service/kubernetes-service   0.1.581
 
 For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. 
 
-> **Normally the kubectl installation has been done during the preparation lab.
-**
+> **Normally the kubectl installation has been done during the preparation lab.**
 
 ### 4. Check kubectl 
 
@@ -188,12 +190,14 @@ type the following command :
 
 And you should get version :
 
-```console 
+``` bash
 $ kubectl version --short
 Client Version: v1.9.8
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
-````
-The error at the end is normal because we need to specify how to connect to the master (see below). 
+```
+
+The error at the end is normal because we need to specify how to connect to the master (see below).
+
 
 ### 5. Gain access to the cluster
 
@@ -213,60 +217,68 @@ Set the context for the cluster in your CLI.
 
 Here is the output:
 
-```console
+``` bash
 $ ibmcloud cs cluster-config mycluster
 OK
+
 The configuration for mycluster was downloaded successfully. Export environment variables to start using Kubernetes.
 
 export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/mycluster/kube-config-mil01-mycluster.yml
 ```
 
  > IMPORTANT : Set the KUBECONFIG environment variable. **Copy the output from the previous command and paste it in your terminal**. The command output should look similar to the following.
- 
+
  `export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/mycluster/kube-config-mil01-mycluster.yml`
- 
+
  Verify that you can connect to your cluster by listing your worker nodes.
- 
+
  `kubectl get nodes`
- 
+
  The output should be :
- 
- ```console 
+
+```bash
 $ kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
 10.144.186.74   Ready     <none>    11m       v1.9.8-2+af27ab4b096122
-````
+```
+
 **YOU ARE NOW CONNECTED TO YOUR CLUSTER**
+
+
 
 # Task 3 : Creating a private registry
 
-
 Set up your own private image repository in IBM Cloud Container Registry to securely store and share Docker images with all cluster users. A private image repository in IBM Cloud is identified by a **namespace**. The namespace is used to create a unique URL to your image repository that developers can use to access private Docker images.
-
 
 We choose a unique name as our namespace to group all images in our account. Replace <your_namespace> with a namespace of your choice and not something that is related to the tutorial.
 
-`ibmcloud cr namespace-add <my_namespace>`
+```
+ibmcloud cr namespace-add <my_namespace>
+```
 
-```console
+Results:
+
+```bash
 $ ibmcloud cr namespace-add imgreg        
 Adding namespace 'imgreg'...
 Successfully added namespace 'imgreg'
 OK
-````
+```
 
 Now login to the IBM Cloud registry:
 
 `ibmcloud cr login`
 
 Output:
-```console 
+
+```bash
 $ ibmcloud cr login
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
-
 OK
 ```
+
+
 
 To test our new private registry, do the following steps:
 
@@ -300,7 +312,7 @@ Also test your connectivity to the cluster with this command:
  `kubectl get nodes`
 
 If you get an error message like "error: You must be logged in to the server (Unauthorized)", then you must setup your KUBECONFIG (see a previous topic)
-    
+​    
 
 ### 2. Download a GIT repo for this exercise
 
@@ -309,7 +321,7 @@ If you get an error message like "error: You must be logged in to the server (Un
 Get and download this github repository into that directory :
 
 `git clone https://github.com/IBM/container-service-getting-started-wt.git`
-	
+​	
 ![git](images/git.png)
 
 
@@ -324,7 +336,7 @@ Build the image locally and tag it with the name that you want to use on the  ku
 
 Output is:
 
-```console
+```
 $ docker build -t registry.eu-gb.bluemix.net/imgreg/hello1 .
 Sending build context to Docker daemon  15.36kB
 Step 1/6 : FROM node:9.4.0-alpine
@@ -353,8 +365,8 @@ To see the image, use the following command:
 `docker images registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
 
 Example:
- 
- ```console
+
+ ```
 $ docker images registry.eu-gb.bluemix.net/imgreg/hello1:latest
 REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
 registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1        2 months ago        74.1MB
@@ -364,12 +376,12 @@ registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1     
 
 Push your image into the private registry :
 
-    
+
 `docker push registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
- 
+
  Your output should look like this.
 
-```console
+```
 $ docker push registry.eu-gb.bluemix.net/imgreg/hello1
 The push refers to repository [registry.eu-gb.bluemix.net/imgreg/hello1]
 57eebb8b0417: Pushed 
@@ -413,10 +425,10 @@ You can look around in the dashboard to see all the different resources (pods, n
 Use your image to create a kubernetes deployment with the following command.
 
 `kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/<namespace>/hello1`
-  
+
 Output is :
 
-```console
+```
 $ kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/imgreg/hello1
 deployment "hello1-deployment" created
 ```
@@ -429,11 +441,11 @@ You can also look at the dashboard to see the deployment:
 Create a service to access your running container using the following command.
 
 `kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
- 
-  
+
+
 Your output should be:
 
-```console
+```
 $ kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
 service "hello1-service" exposed
 ```
@@ -453,7 +465,7 @@ The service is accessed through the IP address of the proxy node with the NodePo
 
  Your output should look like this.
 
-```console
+```
 $ kubectl describe service hello1-service
 Name:                     hello1-service
 Namespace:                default
@@ -474,7 +486,7 @@ Events:                   <none>
 Or look at the dashboard:
 
 ![Describe](images/describek.png)
- 
+
  
 
 
@@ -483,14 +495,14 @@ Or look at the dashboard:
 Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
 ![Helloworld](images/browser1.png)
- 
+
 
 ### 10. Describe subcommand
 
 You can view much of the information on your cluster resources visually through the Kubernetes console.  As an alternative, you can obtain text-based information on all the resources running in your cluster using the following command.
 
 `kubectl describe all`
- 
+
 Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
 
@@ -504,7 +516,7 @@ For this lab, you need a running deployment with a single replica. First, we cle
 
 To do so, use the following commands :
 - To remove the deployment, use:
- 
+
 `kubectl delete deployment hello1-deployment`
 
 - To remove the service, use: 
@@ -526,7 +538,8 @@ kubectl provides a scale subcommand to change the size of an existing deployment
 `kubectl scale --replicas=10 deployment hello1-deployment`
 
 Here is the result:
-```console
+
+```
 $ kubectl scale --replicas=10 deployment hello1-deployment
 deployment "hello1-deployment" scaled
 ```
@@ -539,7 +552,7 @@ To see your changes being rolled out, you can run:
 
 The rollout might occur so quickly that the following messages might not display:
 
-```console
+```bash
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 1 of 10 updated replicas are available...
 Waiting for rollout to finish: 2 of 10 updated replicas are available...
@@ -551,7 +564,9 @@ Waiting for rollout to finish: 7 of 10 updated replicas are available...
 Waiting for rollout to finish: 8 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "hello1-deployment" successfully rolled out
-````
+```
+
+
 
 Once the rollout has finished, ensure your pods are running by using: 
 
@@ -559,9 +574,9 @@ Once the rollout has finished, ensure your pods are running by using:
 
 You should see output listing 10 replicas of your deployment:
 
-
 Results :
-```console
+
+```bash
 $ kubectl get pods
 NAME                                 READY     STATUS    RESTARTS   AGE
 hello1-deployment-864cd87c7f-675sr   1/1       Running   0          5m
@@ -606,7 +621,7 @@ Run kubectl rollout status deployment/hello-world or kubectl get replicasets to 
 
 `kubectl rollout status deployment/hello1-deployment`
 
-```console
+```bash
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
@@ -641,13 +656,16 @@ Waiting for rollout to finish: 9 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "hello1" successfully rolled out
-````
+```
 
 Finally, use that command to see the result:
-
 `kubectl get replicasets`
 
-```console
+
+
+Results:
+
+```bash
 $ kubectl get replicasets
 NAME                           DESIRED   CURRENT   READY     AGE
 hello1-deployment-864cd87c7f   0         0         0         23m
@@ -660,14 +678,70 @@ Create a new service:
 
 `kubectl describe service hello1-service`
 
-Test your new code :
+Collect the NodePort and test your new code :
 
 ![New Application up and running](./images/NewApp.png)
+
+### 5. Check the health of apps
+
+Kubernetes uses availability checks (**liveness probes**) to know when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a container in such a state can help to make the application more available despite bugs.
+
+Also, Kubernetes uses readiness checks to know when a container is ready to start accepting traffic. A pod is considered ready when all of its containers are ready. One use of this check is to control which pods are used as backends for services. When a pod is not ready, it is removed from load balancers.
+
+In this example, we have defined a HTTP liveness probe to check health of the container every five seconds. For the first 10-15 seconds the /healthz returns a 200 response and will fail afterward. Kubernetes will automatically restart the service.
+
+Open the **healthcheck.yml** file with a text editor. 
+
+`nano healthcheck.yml`
+
+This configuration script combines a few steps from the previous lesson to create a deployment and a service at the same time. App developers can use these scripts when updates are made or to troubleshoot issues by re-creating the pods:
+
+Update the details for the image in your private registry namespace:
+
+image: "registry.eu-gb.bluemix.net/<namespace>/hello-world:2"
+
+> Note the HTTP liveness probe that checks the health of the container every five seconds.
+
+```console
+livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+```
+
+In the Service section, note the NodePort. Rather than generating a random NodePort like you did in the previous lesson, you can specify a port in the 30000 - 32767 range. This example uses 30072.
+
+Run the configuration script in the cluster. When the deployment and the service are created, the app is available for anyone to see:
+
+`kubectl apply -f healthcheck.yml`
+
+Now that all the deployment work is done, check how everything turned out. You might notice that because more instances are running, things might run a bit slower.
+
+Open a browser and check out the app. To form the URL, combine the IP with the NodePort that was specified in the configuration script. 
+
+In a browser, you'll see a success message. If you do not see this text, don't worry. This app is designed to go up and down.
+
+For the first 25-30 seconds, a 200 message is returned, so you know that the app is running successfully. After those 15 seconds, a timeout message is displayed, as is designed in the app.
+
+Launch your Kubernetes dashboard:
+
+In the Workloads tab, you can see the resources that you created. From this tab, you can continually refresh and see that the health check is working. In the Pods section, you can see how many times the pods are restarted when the containers in them are re-created. You might happen to catch errors in the dashboard, indicating that the health check caught a problem. Give it a few minutes and refresh again. You see the number of restarts changes for each pod.
+
+Ready to delete what you created before you continue? This time, you can use the same configuration script to delete both of the resources you created.
+
+`kubectl delete -f healthcheck.yml`
+
+Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! 
+
+
+
+
 
 # Conclusion
 
 You have learnt how to create a Kubernetes cluster and how to configure all the necessary tools (CLI, connection) to manage a cluster and the kubernetes resources (PODs, Services).
-
 
 ---
 # End of the lab
@@ -675,3 +749,5 @@ You have learnt how to create a Kubernetes cluster and how to configure all the 
 ![kube2](images/sca000.png)
 
 ---
+
+
