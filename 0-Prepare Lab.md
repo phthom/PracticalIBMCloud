@@ -71,7 +71,7 @@ Log in to IBM Cloud with your credentials :
 Check if you can access to **Containers in Kubernetes Clusters**.
 To do so, click on **Catalog** and click on **Containers** on the left pane of the page :
 
- 
+
 ![Showing Containers](./images/showcontainers.png)
 
 > **IMPORTANT** : If you just see **Container Registry** and not the Containers in Kubernetes Clusters, then **you will need a promo code !!!**
@@ -253,7 +253,7 @@ sdk-gen plug-in
 For MacOS or Linux:
 `curl -sL https://ibm.biz/idt-installer | bash`
 
-For Windows: 
+For Windows in PowerShell : 
 ```
 Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('http://ibm.biz/idt-win-installer')
 ```
@@ -398,14 +398,16 @@ IBM-Containers                         1.0.1058
 cloud-functions/wsk/functions/fn       1.0.22 
 ```
 
+
+
 # Task 7. Login to IBM Cloud
 
  Login to IBM Cloud with the ic command :
- 
+
  `ibmcloud login -a api.eu-gb.bluemix.net`
- 
+
  And answer a few questions: email, password, account, 
- 
+
  ```console 
 $ ibmcloud login -a api.eu-gb.bluemix.net
 API endpoint: api.eu-gb.bluemix.net
@@ -431,14 +433,14 @@ Tip: If you are managing Cloud Foundry applications and services
 - Use 'ic target --cf' to target Cloud Foundry org/space interactively, or use 'ic target -o ORG -s SPACE' to target the org/space.
 - Use 'ic cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
 
-````
+​````
 
 And optionally, you can also specify the following ORG and SPACE with that command :
 
 `ibmcloud target --cf`
 
 Results:
-```console
+​```console
 # ibmcloud target --cf
 Targeted Cloud Foundry (https://api.eu-gb.bluemix.net)
 
@@ -455,7 +457,7 @@ CF API endpoint:   https://api.eu-gb.bluemix.net (API version: 2.106.0)
 Org:               philament@mail.com   
 Space:             dev     
 
-```
+ ```
 
 Or you can also use :
 
