@@ -408,7 +408,7 @@ http://ipaddress:8081/
 
 ## Conclusion
 
-Congratulations, you have successfully completed this Containers lab!.  You've just deployed your first Docker-based web app on IBM Cloud Private!  In this lab, you learned how to tag and push local images to IPC, inspect pushed images for security vulnerabilities, and run hosted multi-container applications on IBM Containers.
+Congratulations, you have successfully completed this Containers lab!.  You've just deployed your first Docker-based web app on IBM Cloud !  In this lab, you learned how to tag and build local images.
 
 ---
 # End of the lab
